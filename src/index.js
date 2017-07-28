@@ -11,6 +11,8 @@ import 'moment-range';
 type DatesType = {
   range: boolean,
   history: boolean,
+  previousText: string,
+  nextText: string,
   date: ?moment,
   startDate: ?moment,
   endDate: ?moment,
@@ -204,7 +206,7 @@ export const Month = (props: MonthType) => {
   weekRange.by('days', (day: moment) => {
     dayNames.push(
       <Text key={day.date()} style={styles.dayName}>
-        {day.format('ddd')}
+        {day.format('dd')}
       </Text>
     );
   });
@@ -258,11 +260,11 @@ export default class Dates extends Component {
       <View style={styles.calendar}>
         <View style={styles.heading}>
           <TouchableOpacity onPress={previousMonth}>
-            <Text>{'< Previous'}</Text>
+            <Text>{'< ' + (this.props.previousText ? this.props.previousText : 'Previous')}</Text>
           </TouchableOpacity>
           <Text>{this.state.focusedMonth.format('MMMM')}</Text>
           <TouchableOpacity onPress={nextMonth}>
-            <Text>{'Next >'}</Text>
+            <Text>{(this.props.nextText ? this.props.nextText : 'Next') + ' >'}</Text>
           </TouchableOpacity>
         </View>
         <Month
